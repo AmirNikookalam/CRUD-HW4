@@ -1,4 +1,5 @@
 ﻿using HW4.Interfaces;
+using HW4.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HW4.Storage
 {
-    public class scvServices : IStorage
+    public class ScvServices : IStorage
     {
         public void AddUser(User user)
         {
@@ -15,6 +16,11 @@ namespace HW4.Storage
         }
 
         public List<User> GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Count()
         {
             throw new NotImplementedException();
         }

@@ -1,9 +1,6 @@
 ﻿
 
 using HW4.Entities;
-using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
 
 namespace Program
 {
@@ -20,6 +17,7 @@ namespace Program
 
             do
             {
+                //Showing list
                 Console.WriteLine("--What do you want to do?" +
                     "\n 1.Create an account " +
                     "\n 2.Delete an account " +
@@ -27,44 +25,53 @@ namespace Program
                     "\n 4.See list of users " +
                     "\n 5.Exit" +
                     "\n => ");
+
+                //Getting input
                 inputOption = Console.ReadLine();
 
-
-                switch (inputOption)
+                //try-catch
+                try
                 {
-                    //1.Create an account
-                    case "1":
-                        Console.Clear();
+                    switch (inputOption)
+                    {
+                        //1.Create an account
+                        case "1":
+                            Console.Clear();
 
-                        break;
+                            break;
 
-                    //2.Delete an account
-                    case "2":
-                        Console.Clear();
+                        //2.Delete an account
+                        case "2":
+                            Console.Clear();
 
-                        break;
-                    //3.Update an account
-                    case "3":
-                        Console.Clear();
-                        break;
+                            break;
+                        //3.Update an account
+                        case "3":
+                            Console.Clear();
+                            break;
 
-                    //4.See list of users
-                    case "4":
-                        Console.Clear();
+                        //4.See list of users
+                        case "4":
+                            Console.Clear();
 
-                        break;
-                    //5.Exit   
-                    case "5":
+                            break;
+                        //5.Exit   
+                        case "5":
 
-                        flag = false;
-                        break;
+                            flag = false;
+                            break;
 
-                    default:
-                        Console.Clear();
+                        default:
+                            Console.Clear();
 
-                        Console.WriteLine("Error: Please give a number between 1 and 4!");
-                        flag = false;
-                        break;
+                            Console.WriteLine("Error: Please give a number between 1 and 4!");
+                            flag = false;
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             } while (flag);
 

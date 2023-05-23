@@ -1,6 +1,7 @@
 ﻿using HW4.CRUD;
 using HW4.Entities;
 using HW4.Storage;
+using System.Data;
 
 namespace HW4.MainProgram
 {
@@ -21,6 +22,7 @@ namespace HW4.MainProgram
 
             do
             {
+                Console.Clear();
                 //Showing list
                 Console.WriteLine("--What do you want to do?" +
                     "\n 1.Create an account " +
@@ -28,7 +30,7 @@ namespace HW4.MainProgram
                     "\n 3.Update an account " +
                     "\n 4.See list of users " +
                     "\n 5.Exit" +
-                    "\n--Give me the number: ");
+                    "\n\n--Give me the number: ");
 
                 //Getting input
                 inputOption = Console.ReadLine();
@@ -41,28 +43,29 @@ namespace HW4.MainProgram
                         //1.Create an account
                         case "1":
                             Console.Clear();
+                            Console.WriteLine("--Creating Account\n");
 
                             //Getting username and mobile number and birthday from user
                             Console.WriteLine($"--Give your name:");
                             userName = Console.ReadLine();
 
-                            Console.WriteLine($"--Give your number:");
+                            Console.WriteLine($"-Give your number:");
                             userMobileNumber = Console.ReadLine();
 
-                            Console.WriteLine($"--Give your birthday:");
+                            Console.WriteLine($"-Give your birthday(YYYY/MM/DD):");
                             userBirthday = Convert.ToDateTime(Console.ReadLine());
                             //Getting username and mobile number and birthday from user (END)
 
                             user.userName = userName;
                             user.userBirthday = userBirthday;
                             user.userMobileNumber = userMobileNumber;
-                            user.userBirthday = userBirthday;
-                            user.userID = scvService.Count();
+                            //user.userID = scvService.Count();
+                            user.userDateCreated = DateTime.Now;
 
                             if(crud.CreateUser(user))
-                                Console.WriteLine("--System message: Account created successfully");
+                                Console.WriteLine("--System message: Account created successfully\n");
                             else
-                                Console.WriteLine("--Error: Couldn't create the account");
+                                Console.WriteLine("--Error: Couldn't create the account\n");
 
                             break;
 
@@ -90,7 +93,7 @@ namespace HW4.MainProgram
                         default:
                             Console.Clear();
 
-                            Console.WriteLine("Error: Please give a number between 1 and 4!");
+                            Console.WriteLine("Error: Please give a number between 1 and 5!");
                             flag = false;
                             break;
                     }

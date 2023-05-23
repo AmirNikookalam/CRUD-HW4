@@ -13,5 +13,6 @@ namespace HW4.Entities
         public string? userName { get; set;}
         public string? userMobileNumber { get; set;}
         public DateTime userBirthday { get; set;}
+        public DateTime userDateCreated { get; set; }
     }
 }

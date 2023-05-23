@@ -9,7 +9,7 @@ namespace HW4.MainProgram
         static void Main(string[] args)
         {
             User user = new User();
-            DateTime userBirthday = new DateTime(2023 / 12 / 30);
+            DateTime userBirthday;
             Crud crud = new Crud(new ScvServices());
             ScvServices scvService = new ScvServices();
 
@@ -28,7 +28,7 @@ namespace HW4.MainProgram
                     "\n 3.Update an account " +
                     "\n 4.See list of users " +
                     "\n 5.Exit" +
-                    "\n => ");
+                    "\n--Give me the number: ");
 
                 //Getting input
                 inputOption = Console.ReadLine();
@@ -43,16 +43,17 @@ namespace HW4.MainProgram
                             Console.Clear();
 
                             //Getting username and mobile number and birthday from user
-                            Console.WriteLine($"--Give your name:\n");
+                            Console.WriteLine($"--Give your name:");
                             userName = Console.ReadLine();
 
-                            Console.WriteLine($"--Give your number:\n");
+                            Console.WriteLine($"--Give your number:");
                             userMobileNumber = Console.ReadLine();
 
-                            Console.WriteLine($"--Give your birthday:\n");
-                            userBirthday = new DateTime(Convert.ToInt64(Console.ReadLine()));
+                            Console.WriteLine($"--Give your birthday:");
+                            userBirthday = Convert.ToDateTime(Console.ReadLine());
                             //Getting username and mobile number and birthday from user (END)
 
+                            user.userName = userName;
                             user.userBirthday = userBirthday;
                             user.userMobileNumber = userMobileNumber;
                             user.userBirthday = userBirthday;

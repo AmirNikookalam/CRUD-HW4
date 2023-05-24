@@ -62,6 +62,9 @@ namespace HW4.CRUD
                 return false;
             }
         }
-            public void UpdateUser(User user) { }
+        public bool UpdateUser(User user) 
+        {
+            return true;
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace HW4.MainProgram
         static void Main(string[] args)
         {
             User user = new User();
+            User? targetUser = new User();
             DateTime userBirthday;
             Crud crud = new Crud(new ScvServices());
             ScvServices scvService = new ScvServices();
@@ -89,7 +90,7 @@ namespace HW4.MainProgram
                             userNumber = Convert.ToInt32(Console.ReadLine());
 
                             //Check if given the user exist
-                            User? targetUser = scvService.GetAllUsers().Find(user => user.userID == userNumber); 
+                            targetUser = scvService.GetAllUsers().Find(user => user.userID == userNumber); 
                             if (targetUser != null)
                             {
                                 //check if we could remove the user account successfully
@@ -112,11 +113,38 @@ namespace HW4.MainProgram
                             }
 
                             break;
+
                         //3.Update an account
                         case "3":
                             Console.Clear();
                             Console.WriteLine("--Showing the List of users\n");
 
+                            Console.WriteLine("--Updating Account\n");
+                            Console.WriteLine("-Give me the number of user you want to update:");
+                            userNumber = Convert.ToInt32(Console.ReadLine());
+
+                            //Check if given the user exist
+                            targetUser = scvService.GetAllUsers().Find(user => user.userID == userNumber);
+                            if (targetUser != null)
+                            {
+                                //check if we could update the user account successfully
+                                if (crud.UpdateUser(targetUser))
+                                    Console.WriteLine("--Account updated successfully\n");
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("--Error: Couldn't update the account\n");
+                                    Console.ResetColor();
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Error: We don't have any user with that user number");
+                                Console.ResetColor();
+
+                                flag = false;
+                            }
                             //Showing users list
                             crud.ShowUsersList();
 

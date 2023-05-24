@@ -20,7 +20,10 @@ namespace HW4.CRUD
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.Message);
+                Console.ResetColor();
+
                 return false;
             }
         }

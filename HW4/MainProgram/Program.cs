@@ -14,7 +14,6 @@ namespace HW4.MainProgram
             Crud crud = new Crud(new ScvServices());
             ScvServices scvService = new ScvServices();
 
-            int? userId = 0;
             string? userName = string.Empty;
             string? userMobileNumber = string.Empty;
             string? inputOption = string.Empty;
@@ -30,7 +29,7 @@ namespace HW4.MainProgram
                     "\n 3.Update an account " +
                     "\n 4.See list of users " +
                     "\n 5.Exit" +
-                    "\n\n--Give me the number: ");
+                    "\n\n--Give me the option number: ");
 
                 //Getting input
                 inputOption = Console.ReadLine();
@@ -46,10 +45,10 @@ namespace HW4.MainProgram
                             Console.WriteLine("--Creating Account\n");
 
                             //Getting username and mobile number and birthday from user
-                            Console.WriteLine($"--Give your name:");
+                            Console.WriteLine($"-Give your name:");
                             userName = Console.ReadLine();
 
-                            Console.WriteLine($"-Give your number:");
+                            Console.WriteLine($"-Give your mobile number:");
                             userMobileNumber = Console.ReadLine();
 
                             Console.WriteLine($"-Give your birthday(YYYY/MM/DD):");
@@ -59,13 +58,18 @@ namespace HW4.MainProgram
                             user.userName = userName;
                             user.userBirthday = userBirthday;
                             user.userMobileNumber = userMobileNumber;
-                            //user.userID = scvService.Count();
+                            user.userID = scvService.Count() + 1;
                             user.userDateCreated = DateTime.Now;
 
                             if(crud.CreateUser(user))
-                                Console.WriteLine("--System message: Account created successfully\n");
+                                Console.WriteLine("--Account created successfully\n");
                             else
-                                Console.WriteLine("--Error: Couldn't create the account\n");
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("--Error: Couldn't create the account\n"); 
+                                Console.ResetColor();
+                            }
+                                
 
                             break;
 
@@ -93,7 +97,10 @@ namespace HW4.MainProgram
                         default:
                             Console.Clear();
 
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Error: Please give a number between 1 and 5!");
+                            Console.ResetColor();
+                            
                             flag = false;
                             break;
                     }
@@ -102,9 +109,14 @@ namespace HW4.MainProgram
                 {
                     Console.WriteLine(ex.Message);
                 }
+
+                //Continue
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
             } while (flag);
 
             Console.WriteLine("G00dBye;");
+            Console.ReadKey();
         }
     }
 }

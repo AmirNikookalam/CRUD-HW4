@@ -1,13 +1,7 @@
-﻿using HW4.Interfaces;
+﻿using CsvHelper;
 using HW4.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Formats.Asn1;
+using HW4.Interfaces;
 using System.Globalization;
-using CsvHelper;
 
 namespace HW4.Storage
 {
@@ -41,7 +35,7 @@ namespace HW4.Storage
 
         public int Count()
         {
-            throw new NotImplementedException();
+            return GetAllUsers().Count;      
         }
     }
 }

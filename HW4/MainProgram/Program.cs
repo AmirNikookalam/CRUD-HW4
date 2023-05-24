@@ -55,12 +55,14 @@ namespace HW4.MainProgram
                             userBirthday = Convert.ToDateTime(Console.ReadLine());
                             //Getting username and mobile number and birthday from user (END)
 
+                            //Fill the user object properties
                             user.userName = userName;
                             user.userBirthday = userBirthday;
                             user.userMobileNumber = userMobileNumber;
                             user.userID = scvService.Count() + 1;
                             user.userDateCreated = DateTime.Now;
 
+                            //Checking if we could create the new user successfully or not
                             if(crud.CreateUser(user))
                                 Console.WriteLine("--Account created successfully\n");
                             else
@@ -70,7 +72,6 @@ namespace HW4.MainProgram
                                 Console.ResetColor();
                             }
                                 
-
                             break;
 
                         //2.Delete an account
@@ -86,6 +87,10 @@ namespace HW4.MainProgram
                         //4.See list of users
                         case "4":
                             Console.Clear();
+                            Console.WriteLine("--Showing the List of users\n");
+
+                            //Showing users list
+                            crud.ShowUsersList();
 
                             break;
                         //5.Exit   

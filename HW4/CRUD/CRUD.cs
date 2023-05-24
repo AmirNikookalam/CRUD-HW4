@@ -1,5 +1,7 @@
 ﻿using HW4.Entities;
 using HW4.Interfaces;
+using HW4.Storage;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace HW4.CRUD
 {
@@ -27,5 +29,22 @@ namespace HW4.CRUD
                 return false;
             }
         }
+
+        public void ShowUsersList()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            foreach (var user in _storage.GetAllUsers())
+            {
+                Console.WriteLine($"- User number {user.userID}:\n " +
+                    $"\tuser name is {user.userName}\n " +
+                    $"\t{user.userName}'s mobile number is {user.userMobileNumber},\n " +
+                    $"\t{user.userName} born at {user.userBirthday}\n " +
+                    $"\tand {user.userName} created his/her account in {user.userDateCreated}.\n ");
+            }
+
+            Console.ResetColor();
+        }
+        public void UpdateUser(User user) { }
     }
 }

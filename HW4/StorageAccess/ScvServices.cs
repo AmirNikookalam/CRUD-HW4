@@ -36,7 +36,7 @@ namespace HW4.Storage
         public void RemoveUser(User user)
         {
             List<User> persons = GetAllUsers();
-            persons.Remove(user);
+            persons.RemoveAt(user.userID - 1);
 
             using (var writer = new StreamWriter(storagePath))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))

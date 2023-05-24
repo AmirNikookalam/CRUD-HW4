@@ -145,7 +145,6 @@ namespace HW4.MainProgram
                             Console.WriteLine("Error: Please give a number between 1 and 5!");
                             Console.ResetColor();
                             
-                            flag = false;
                             break;
                     }
                 }

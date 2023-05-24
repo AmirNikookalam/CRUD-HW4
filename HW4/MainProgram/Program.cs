@@ -2,6 +2,7 @@
 using HW4.Entities;
 using HW4.Storage;
 using System.Data;
+using System.Security.Cryptography.X509Certificates;
 
 namespace HW4.MainProgram
 {
@@ -17,6 +18,7 @@ namespace HW4.MainProgram
             string? userName = string.Empty;
             string? userMobileNumber = string.Empty;
             string? inputOption = string.Empty;
+            int userNumber = 0;
             bool flag = true;
 
             do
@@ -77,11 +79,48 @@ namespace HW4.MainProgram
                         //2.Delete an account
                         case "2":
                             Console.Clear();
+                            Console.WriteLine("--Showing the List of users\n");
+
+                            //Showing users list
+                            crud.ShowUsersList();
+
+                            Console.WriteLine("--Deleting Account\n");
+                            Console.WriteLine("-Give me the number of user you want to remove:");
+                            userNumber = Convert.ToInt32(Console.ReadLine());
+
+                            //Check if given the user exist
+                            User? targetUser = scvService.GetAllUsers().Find(user => user.userID == userNumber); 
+                            if (targetUser != null)
+                            {
+                                //check if we could remove the user account successfully
+                                if (crud.DeleteUser(targetUser))
+                                    Console.WriteLine("--Account removed successfully\n");
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("--Error: Couldn't remove the account\n");
+                                    Console.ResetColor();
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Error: We don't have any user with that user number");
+                                Console.ResetColor();
+
+                                flag = false;
+                            }
 
                             break;
                         //3.Update an account
                         case "3":
                             Console.Clear();
+                            Console.WriteLine("--Showing the List of users\n");
+
+                            //Showing users list
+                            crud.ShowUsersList();
+
+
                             break;
 
                         //4.See list of users

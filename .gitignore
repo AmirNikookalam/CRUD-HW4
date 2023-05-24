@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Files that Amir wants to manually ignore
+FileDataStorage
+*.csv
+*.xlsx
+*.doc

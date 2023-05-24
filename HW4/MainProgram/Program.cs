@@ -12,6 +12,7 @@ namespace HW4.MainProgram
         {
             User user = new User();
             User? targetUser = new User();
+            User? updateUser = new User();
             DateTime userBirthday;
             Crud crud = new Crud(new ScvServices());
             ScvServices scvService = new ScvServices();
@@ -89,7 +90,7 @@ namespace HW4.MainProgram
                             Console.WriteLine("-Give me the number of user you want to remove:");
                             userNumber = Convert.ToInt32(Console.ReadLine());
 
-                            //Check if given the user exist
+                            //Check if given user exist
                             targetUser = scvService.GetAllUsers().Find(user => user.userID == userNumber); 
                             if (targetUser != null)
                             {
@@ -111,6 +112,8 @@ namespace HW4.MainProgram
 
                                 flag = false;
                             }
+                            //Showing users list again after change
+                            crud.ShowUsersList();
 
                             break;
 
@@ -119,16 +122,37 @@ namespace HW4.MainProgram
                             Console.Clear();
                             Console.WriteLine("--Showing the List of users\n");
 
+                            //Showing users list
+                            crud.ShowUsersList();
+
                             Console.WriteLine("--Updating Account\n");
                             Console.WriteLine("-Give me the number of user you want to update:");
                             userNumber = Convert.ToInt32(Console.ReadLine());
 
-                            //Check if given the user exist
+                            //Check if given user exist
                             targetUser = scvService.GetAllUsers().Find(user => user.userID == userNumber);
                             if (targetUser != null)
                             {
+                                crud.DeleteUser(targetUser);
+
+                                //Give updateUser properties
+                                Console.WriteLine($"-Give your new name:");
+                                userName = Console.ReadLine();
+
+                                Console.WriteLine($"-Give your new mobile number:");
+                                userMobileNumber = Console.ReadLine();
+
+                                Console.WriteLine($"-Give your new birthday(YYYY/MM/DD):");
+                                userBirthday = Convert.ToDateTime(Console.ReadLine());
+                                //Give updateUser properties (END)
+
+                                updateUser.userName = userName;
+                                updateUser.userBirthday = userBirthday;
+                                updateUser.userMobileNumber = userMobileNumber;
+                                updateUser.userID = scvService.Count() + 1;
+
                                 //check if we could update the user account successfully
-                                if (crud.UpdateUser(targetUser))
+                                if (crud.UpdateUser(updateUser))
                                     Console.WriteLine("--Account updated successfully\n");
                                 else
                                 {
@@ -145,9 +169,8 @@ namespace HW4.MainProgram
 
                                 flag = false;
                             }
-                            //Showing users list
+                            //Showing users list again after change
                             crud.ShowUsersList();
-
 
                             break;
 
@@ -178,7 +201,9 @@ namespace HW4.MainProgram
                 }
                 catch (Exception ex)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(ex.Message);
+                    Console.ResetColor();
                 }
 
                 //Continue

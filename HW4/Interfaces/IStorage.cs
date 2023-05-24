@@ -14,6 +14,8 @@ namespace HW4.Interfaces
 
         void AddUser(User user);
 
+        void RemoveUser(User user);
+
         public int Count();
     }
 }

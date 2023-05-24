@@ -33,6 +33,18 @@ namespace HW4.Storage
             return users.ToList<User>();
         }
 
+        public void RemoveUser(User user)
+        {
+            List<User> persons = GetAllUsers();
+            persons.Remove(user);
+
+            using (var writer = new StreamWriter(storagePath))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(persons);
+            }
+        }
+
         public int Count()
         {
             return GetAllUsers().Count;      

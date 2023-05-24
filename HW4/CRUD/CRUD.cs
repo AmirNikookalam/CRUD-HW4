@@ -45,6 +45,23 @@ namespace HW4.CRUD
 
             Console.ResetColor();
         }
-        public void UpdateUser(User user) { }
+
+        public bool DeleteUser(User user)
+        {
+            try
+            {
+                _storage.RemoveUser(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.ResetColor();
+
+                return false;
+            }
+        }
+            public void UpdateUser(User user) { }
     }
 }

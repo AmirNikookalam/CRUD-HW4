@@ -1,8 +1,6 @@
 ﻿using HW4.CRUD;
 using HW4.Entities;
 using HW4.Storage;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
 
 namespace HW4.MainProgram
 {
@@ -55,27 +53,46 @@ namespace HW4.MainProgram
                             Console.WriteLine($"-Give your mobile number:");
                             userMobileNumber = Console.ReadLine();
 
-                            Console.WriteLine($"-Give your birthday(YYYY/MM/DD):");
-                            userBirthday = Convert.ToDateTime(Console.ReadLine());
-                            //Getting username and mobile number and birthday from user (END)
+                            //Validate userMobileNumber is 11 gigits or not
+                            if (user.MobileNumberIsValid(userMobileNumber))
+                            {
+                                Console.WriteLine($"-Give your birthday(YYYY/MM/DD):");
+                                userBirthday = Convert.ToDateTime(Console.ReadLine());
 
-                            //Fill the user object properties
-                            user.userName = userName;
-                            user.userBirthday = userBirthday;
-                            user.userMobileNumber = userMobileNumber;
-                            user.userID = scvService.Count() + 1;
-                            user.userDateCreated = DateTime.Now;
+                                //Validate userBirthday is earlier than Now or not
+                                if (user.DateTimeIsValid(userBirthday))
+                                {
+                                    //Fill the user object properties
+                                    user.userName = userName;
+                                    user.userBirthday = userBirthday;
+                                    user.userMobileNumber = userMobileNumber;
+                                    user.userID = scvService.Count() + 1;
+                                    user.userDateCreated = DateTime.Now;
 
-                            //Checking if we could create the new user successfully or not
-                            if(crud.CreateUser(user))
-                                Console.WriteLine("--Account created successfully\n");
+                                    //Checking if we could create the new user successfully or not
+                                    if (crud.CreateUser(user))
+                                        Console.WriteLine("--Account created successfully\n");
+                                    else
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("--Error: Couldn't create the account\n");
+                                        Console.ResetColor();
+                                    }
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("--Error: Don't give your birthday in the future \n");
+                                    Console.ResetColor();
+                                }
+                            }
                             else
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("--Error: Couldn't create the account\n"); 
+                                Console.WriteLine("--Error: Please give a 11 digits mobile number\n");
                                 Console.ResetColor();
                             }
-                                
+
                             break;
 
                         //2.Delete an account
@@ -91,7 +108,7 @@ namespace HW4.MainProgram
                             userNumber = Convert.ToInt32(Console.ReadLine());
 
                             //Check if given user exist
-                            targetUser = scvService.GetAllUsers().Find(user => user.userID == userNumber); 
+                            targetUser = scvService.GetAllUsers().Find(user => user.userID == userNumber);
                             if (targetUser != null)
                             {
                                 //check if we could remove the user account successfully
@@ -142,22 +159,41 @@ namespace HW4.MainProgram
                                 Console.WriteLine($"-Give your new mobile number:");
                                 userMobileNumber = Console.ReadLine();
 
-                                Console.WriteLine($"-Give your new birthday(YYYY/MM/DD):");
-                                userBirthday = Convert.ToDateTime(Console.ReadLine());
-                                //Give updateUser properties (END)
+                                //Validate userMobileNumber is 11 gigits or not
+                                if (updateUser.MobileNumberIsValid(userMobileNumber))
+                                {
+                                    Console.WriteLine($"-Give your new birthday(YYYY/MM/DD):");
+                                    userBirthday = Convert.ToDateTime(Console.ReadLine());
 
-                                updateUser.userName = userName;
-                                updateUser.userBirthday = userBirthday;
-                                updateUser.userMobileNumber = userMobileNumber;
-                                updateUser.userID = scvService.Count() + 1;
+                                    //Validate userBirthday is earlier than Now or not
+                                    if (updateUser.DateTimeIsValid(userBirthday))
+                                    {
+                                        updateUser.userName = userName;
+                                        updateUser.userBirthday = userBirthday;
+                                        updateUser.userMobileNumber = userMobileNumber;
+                                        updateUser.userID = scvService.Count() + 1;
 
-                                //check if we could update the user account successfully
-                                if (crud.UpdateUser(updateUser))
-                                    Console.WriteLine("--Account updated successfully\n");
+                                        //check if we could update the user account successfully
+                                        if (crud.UpdateUser(updateUser))
+                                            Console.WriteLine("--Account updated successfully\n");
+                                        else
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("--Error: Couldn't update the account\n");
+                                            Console.ResetColor();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("--Error: Don't give your birthday in the future\n");
+                                        Console.ResetColor();
+                                    }
+                                }
                                 else
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("--Error: Couldn't update the account\n");
+                                    Console.WriteLine("--Error: Please give a 11 digits mobile number\n");
                                     Console.ResetColor();
                                 }
                             }
@@ -195,7 +231,7 @@ namespace HW4.MainProgram
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Error: Please give a number between 1 and 5!");
                             Console.ResetColor();
-                            
+
                             break;
                     }
                 }

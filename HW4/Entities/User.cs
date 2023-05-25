@@ -15,7 +15,7 @@ namespace HW4.Entities
             return dateTime.CompareTo (DateTime.Now) <= 0;
         }
 
-        public bool MobileNumberIsValid (string mobileNumber)
+        public bool MobileNumberIsValid (string? mobileNumber)
         {
             return mobileNumber.Count() == 11;
         }

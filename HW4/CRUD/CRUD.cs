@@ -8,7 +8,6 @@ namespace HW4.CRUD
     public class Crud
     {
         private IStorage _storage;
-        private ScvServices scvService;
         public Crud(IStorage storage)
         {
             _storage = storage;
